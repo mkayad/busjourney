@@ -21,32 +21,64 @@
 <div class="container">
     <!-- Content here -->
     <div class="col-md-12">
-        <h2 class="content-heading">Buses Expected at Great Portland Street Station -  Bus Stop G and H </h2>
-        <div class="block">
-            <div class="block-content">
-                <table class="display table table-responsive-sm able-striped" id="tableData" border="0" cellpadding="0"
+        <h2 class="content-heading">Buses Expected at Great Portland Street Station</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Stop G</h3>
+                <table class="display table table-responsive-sm table-striped" id="tableData" border="1" cellpadding="0"
                        cellspacing="0"
                        style="width:100%">
                     <thead class="thead-dark">
                     <tr>
                         <th>Line Name</th>
                         <th>Destination</th>
-                        <th>Platform</th>
-                        <th>Due</th>
+                        <#--<th>Platform</th>-->
+                        <th>Time</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <#assign arrivalTime = 0>
-                    <#list times as time>
+                    <#assign timeToStation = 0>
+                    <#list gStopTimes as arrivalTime>
                         <tr>
-                            <#assign arrivalTime = time.timeToStation/60>
-                            <td>${time.lineName}</td>
-                            <td>${time.destinationName}</td>
-                            <td>${time.platformName}</td>
-                            <#if arrivalTime?round lt 1>
+                            <#assign timeToStation = arrivalTime.timeToStation/60>
+                            <td>${arrivalTime.lineName}</td>
+                            <td>${arrivalTime.destinationName}</td>
+                            <#--<td>${arrivalTime.platformName}</td>-->
+                            <#if timeToStation?round lt 1>
                                 <td>due</td>
                             <#else>
-                                <td>${arrivalTime?round} mins</td>
+                                <td>${timeToStation?round} mins</td>
+                            </#if>
+                        </tr>
+                    </#list>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h3>Stop H</h3>
+                <table class="display table table-responsive-sm table-striped" id="tableData" border="1" cellpadding="0"
+                       cellspacing="0"
+                       style="width:100%">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Line Name</th>
+                        <th>Destination</th>
+                        <#--<th>Platform</th>-->
+                        <th>Time</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <#assign timeToStation = 0>
+                    <#list hStopTimes as arrivalTime>
+                        <tr>
+                            <#assign timeToStation = arrivalTime.timeToStation/60>
+                            <td>${arrivalTime.lineName}</td>
+                            <td>${arrivalTime.destinationName}</td>
+                            <#--<td>${arrivalTime.platformName}</td>-->
+                            <#if timeToStation?round lt 1>
+                                <td>due</td>
+                            <#else>
+                                <td>${timeToStation?round} mins</td>
                             </#if>
                         </tr>
                     </#list>
@@ -56,7 +88,12 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+
+    setInterval(function(){location.reload();}, 3000)
 
 
+
+</script>
 </body>
 </html>
