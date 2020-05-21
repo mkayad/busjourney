@@ -1,7 +1,7 @@
 # busjourney
 This project is for display the buses due to arrival to stop in London
 # System requirements
-This project requires Java 8 and Maven
+This project requires Java 8 and Maven, it also uses Kotlin.
 # how to run
 in terminal windwod, clone the repo 
 Go to the project folder and run mvn spring-boot:run
