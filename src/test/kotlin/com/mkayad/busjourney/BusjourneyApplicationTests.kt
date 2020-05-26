@@ -1,5 +1,6 @@
 package com.mkayad.busjourney
 
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
@@ -8,6 +9,7 @@ class BusjourneyApplicationTests {
 
 	@Test
 	fun contextLoads() {
+		Assertions.assertTrue(true)
 	}
 
 }

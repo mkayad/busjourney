@@ -1,15 +1,31 @@
-<div class="content">
-    <div class="row js-appear-enabled animated fadeIn" data-toggle="appear" style="width: 100%;">
-        <div class="col-md-12">
-            <h3 class="content-heading text-muted" style="color: firebrick">500 Server Error</h3>
-            <div class="block">
-                <div class="block-content">
-                    <p><span style="color: firebrick">An error occurred while processing your request, </br> please check your input! </span></p>
-                    <#if message?? >
-                        ${message}
-                    </#if>
-                </div>
-            </div>
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
+    <title>Server Error - 500</title>
+</head>
+<body>
+    <div class="container">
+        <!-- Content here -->
+        <div class="col-md-8 col-md-offset-2">
+            <p><span style="color: firebrick">An error occurred while processing your request </span></p>
+            <#if message?? >
+                ${message}
+            </#if>
         </div>
     </div>
-</div>
+</body>
+</html>

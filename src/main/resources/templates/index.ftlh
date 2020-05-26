@@ -38,7 +38,7 @@
                     </thead>
                     <tbody>
                     <#assign timeToStation = 0>
-                    <#list gStopTimes as arrivalTime>
+                    <#list stopGTimes as arrivalTime>
                         <tr>
                             <#assign timeToStation = arrivalTime.timeToStation/60>
                             <td>${arrivalTime.lineName}</td>
@@ -69,7 +69,7 @@
                     </thead>
                     <tbody>
                     <#assign timeToStation = 0>
-                    <#list hStopTimes as arrivalTime>
+                    <#list stopHTimes as arrivalTime>
                         <tr>
                             <#assign timeToStation = arrivalTime.timeToStation/60>
                             <td>${arrivalTime.lineName}</td>
@@ -89,11 +89,8 @@
     </div>
 </div>
 <script type="text/javascript">
-
-    setInterval(function(){location.reload();}, 3000)
-
-
-
+    // Refresh the page
+    setInterval(function(){location.reload();}, 10000)
 </script>
 </body>
 </html>
