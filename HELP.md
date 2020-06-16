@@ -1,4 +1,4 @@
-# Getting Started
+# Learning about git cherry-pick and rebase
 
 ### Reference Documentation
 For further reference, please consider the following sections:
