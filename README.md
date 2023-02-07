@@ -12,4 +12,5 @@ Go to the project folder and **run mvn spring-boot:run**
 open a browser window and type **http://localhost:8080**
 
 the page will refresh itself every 10 seconds
+dummy commit for Azure app service
 
