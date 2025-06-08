@@ -1,0 +1,58 @@
+plugins {
+	id 'java'
+	id 'application'
+	id 'org.springframework.boot' version '3.5.0'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.mkayad.busjourney'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-freemarker'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+application {
+	mainClass.set('com.mkayad.busjourney.BusjourneyApplication')
+}
+sourceSets{
+	main {
+		java {
+			srcDirs("src/main/java")
+		}
+	}
+	test {
+		java {
+			srcDir 'test/java'
+		}
+	}
+}
+bootJar {
+	getArchiveFileName().set(provider {
+		'busjourney.jar'
+	})
+
+	manifest {
+		attributes('Implementation-Version': project.version.toString())
+	}
+}
+
+wrapper {
+	distributionType = Wrapper.DistributionType.ALL
+}

@@ -1,18 +1,16 @@
-# Learning about git cherry-pick and rebase
+# busjourney
+This project is for displaying the buses coming to **Great Portland Street station (G & H)** in London
 
-### Reference Documentation
-For further reference, please consider the following sections:
+# System requirements
+This project requires **Java 8** and **Maven**, it also uses **Kotlin**.
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.3.0.RELEASE/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.3.0.RELEASE/maven-plugin/reference/html/#build-image)
-* [Apache Freemarker](https://docs.spring.io/spring-boot/docs/2.3.0.RELEASE/reference/htmlsingle/#boot-features-spring-mvc-template-engines)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/2.3.0.RELEASE/reference/htmlsingle/#boot-features-developing-web-applications)
+# how to run
+in terminal window, **clone the repo to a folder**
+Go to the project folder and **run mvn spring-boot:run**
 
-### Guides
-The following guides illustrate how to use some features concretely:
+# how to access
+open a browser window and type **http://localhost:8080**
 
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
+the page will refresh itself every 10 seconds
+dummy commit for Azure app service
 

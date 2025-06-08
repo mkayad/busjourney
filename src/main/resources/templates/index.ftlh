@@ -40,9 +40,9 @@
                     <#assign timeToStation = 0>
                     <#list stopGTimes as arrivalTime>
                         <tr>
-                            <#assign timeToStation = arrivalTime.timeToStation/60>
-                            <td>${arrivalTime.lineName}</td>
-                            <td>${arrivalTime.destinationName}</td>
+                            <#assign timeToStation = arrivalTime.timeToStation()/60>
+                            <td>${arrivalTime.lineName()}</td>
+                            <td>${arrivalTime.destinationName()}</td>
                             <#--<td>${arrivalTime.platformName}</td>-->
                             <#if timeToStation?round lt 1>
                                 <td>due</td>
@@ -71,9 +71,9 @@
                     <#assign timeToStation = 0>
                     <#list stopHTimes as arrivalTime>
                         <tr>
-                            <#assign timeToStation = arrivalTime.timeToStation/60>
-                            <td>${arrivalTime.lineName}</td>
-                            <td>${arrivalTime.destinationName}</td>
+                            <#assign timeToStation = arrivalTime.timeToStation()/60>
+                            <td>${arrivalTime.lineName()}</td>
+                            <td>${arrivalTime.destinationName()}</td>
                             <#--<td>${arrivalTime.platformName}</td>-->
                             <#if timeToStation?round lt 1>
                                 <td>due</td>

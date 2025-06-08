@@ -20,3 +20,6 @@ buildNumber.properties
 # Maven files
 .mvn
 .idea/**
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
