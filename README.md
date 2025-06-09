@@ -14,3 +14,6 @@ open a browser window and type **http://localhost:8080**
 the page will refresh itself every 10 seconds
 dummy commit for Azure app service
 
+# docker 
+docker build -t busjourney .
+docker run -d -p 8080:8080 "JAVA_TOOLS_OPTIONS=-Dstop.g.url='https://api.tfl.gov.uk/StopPoint/490000091G/arrivals?mode=bus'  -Dstop.h.url='https://api.tfl.gov.uk/StopPoint/490000091H/arrivals?mode=bus'"  busjourney
