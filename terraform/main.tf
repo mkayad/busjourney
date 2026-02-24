@@ -27,8 +27,8 @@ resource "azurerm_linux_web_app" "main" {
   site_config {
     application_stack {
       java_server         = "JAVA"      # Changed from TOMCAT
-      java_server_version = "17"        # Changed
-      java_version        = "17"
+      java_server_version = "25"        # Changed
+      java_version        = "25"
     }
 
     always_on = false
@@ -45,7 +45,7 @@ resource "azurerm_linux_web_app" "main" {
 
     http_logs {
       file_system {
-        retention_in_days = 7
+        retention_in_days = 2
         retention_in_mb   = 35
       }
     }
