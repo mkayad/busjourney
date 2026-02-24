@@ -27,8 +27,8 @@ resource "azurerm_linux_web_app" "main" {
   site_config {
     application_stack {
       java_server         = "JAVA"      # Changed from TOMCAT
-      java_server_version = "25"        # Changed
-      java_version        = "25"
+      java_server_version = "21"        # Changed
+      java_version        = "21"
     }
 
     always_on = false
