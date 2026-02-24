@@ -23,3 +23,9 @@ buildNumber.properties
 .gradle
 /build/
 !gradle/wrapper/gradle-wrapper.jar
+
+# Terraform
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.backup
+terraform/.terraform.lock.hcl

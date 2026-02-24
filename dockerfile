@@ -1,5 +1,5 @@
 # # # # # # # # # # # # # # # # # # # ## # # # # # # # # ## # # # # # # # # #
-FROM eclipse-temurin:21-jre-alpine
+FROM eclipse-temurin:25-jre-alpine
 
 EXPOSE 8080
 ENV stop.g.url="https://api.tfl.gov.uk/StopPoint/490000091G/arrivals?mode=bus"
