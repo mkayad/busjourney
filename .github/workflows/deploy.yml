@@ -9,7 +9,7 @@ on:
 
 env:
   AZURE_WEBAPP_NAME: my-java-app-${{ github.run_number }}
-  JAVA_VERSION: '25'
+  JAVA_VERSION: '21'
   TF_VERSION: '1.6.0'
   AZURE_RESOURCE_GROUP: 'java-app-rg'
 
