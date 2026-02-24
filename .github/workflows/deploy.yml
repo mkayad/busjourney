@@ -82,7 +82,7 @@ jobs:
       - name: Terraform Init
         run: |
           terraform init \
-            -backend-config="resource_group_name=terraform-state-rg-test" \
+            -backend-config="resource_group_name=terraform-state-rg" \
             -backend-config="storage_account_name=${{ secrets.TF_STATE_STORAGE_ACCOUNT }}" \
             -backend-config="container_name=tfstate" \
             -backend-config="key=java-app.terraform.tfstate"
