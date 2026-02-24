@@ -26,17 +26,17 @@ resource "azurerm_linux_web_app" "main" {
 
   site_config {
     application_stack {
-      java_server         = "TOMCAT"
-      java_server_version = "10.0"
-      java_version        = "17"
+      java_server         = "JAVA"      # Changed from TOMCAT
+      java_server_version = "21"        # Changed
+      java_version        = "21"
     }
 
     always_on = false
   }
 
   app_settings = {
-    "WEBSITE_RUN_FROM_PACKAGE" = "1"
-    "JAVA_OPTS"                = "-Dserver.port=8080"
+    "SCM_DO_BUILD_DURING_DEPLOYMENT" = "false"
+    "WEBSITE_RUN_FROM_PACKAGE"       = "1"
   }
 
   logs {
