@@ -122,9 +122,6 @@ jobs:
     name: Terraform Apply
     needs: terraform-plan
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-    environment:
-      url: https://${{ env.AZURE_WEBAPP_NAME }}.azurewebsites.net
     defaults:
       run:
         working-directory: ./terraform
