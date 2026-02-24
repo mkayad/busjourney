@@ -86,6 +86,11 @@ jobs:
             -backend-config="storage_account_name=${{ secrets.TF_STATE_STORAGE_ACCOUNT }}" \
             -backend-config="container_name=tfstate" \
             -backend-config="key=java-app.terraform.tfstate"
+        env:
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          ARM_USE_OIDC: true  # This tells Terraform to use the OIDC token from azure/login
 
       - name: Terraform Format Check
         run: terraform fmt -check
@@ -102,7 +107,11 @@ jobs:
             -var="resource_group_name=${{ env.AZURE_RESOURCE_GROUP }}" \
             -var="environment=${{ github.ref == 'refs/heads/main' && 'prod' || 'dev' }}" \
             -out=tfplan
-
+        env:
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          ARM_USE_OIDC: true  # This tells Terraform to use the OIDC token from azure/login
       - name: Upload Terraform Plan
         uses: actions/upload-artifact@v4
         with:
@@ -136,7 +145,11 @@ jobs:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
+        env:
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          ARM_USE_OIDC: true  # This tells Terraform to use the OIDC token from azure/login
       - name: Download Terraform Plan
         uses: actions/download-artifact@v4
         with:
@@ -150,6 +163,11 @@ jobs:
             -backend-config="storage_account_name=${{ secrets.TF_STATE_STORAGE_ACCOUNT }}" \
             -backend-config="container_name=tfstate" \
             -backend-config="key=java-app.terraform.tfstate"
+        env:
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          ARM_USE_OIDC: true  # This tells Terraform to use the OIDC token from azure/login
 
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
