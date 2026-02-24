@@ -35,7 +35,7 @@ public class MainControllerUnitTest {
         List<ArrivalDetail> stopHTimes= (List<ArrivalDetail>) model.getAttribute("stopHTimes");
 
         assertFalse(stopGTimes.isEmpty());
-        assertTrue(stopHTimes.isEmpty());
+        assertFalse(stopHTimes.isEmpty());
     }
 
 
