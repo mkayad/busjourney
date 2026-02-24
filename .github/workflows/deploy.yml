@@ -105,7 +105,7 @@ jobs:
           terraform plan \
             -var="app_service_name=${{ env.AZURE_WEBAPP_NAME }}" \
             -var="resource_group_name=${{ env.AZURE_RESOURCE_GROUP }}" \
-#            -var="environment=${{ github.ref == 'refs/heads/main' && 'prod' || 'dev' }}" \
+            -var="environment=${{ github.ref == 'refs/heads/main' && 'prod' || 'dev' }}" \
             -out=tfplan
         env:
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
