@@ -196,6 +196,9 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: java-app
+          path: .
+      - name: List files for debug
+        run: ls -R
 
       - name: Azure Login
         uses: azure/login@v1
@@ -209,6 +212,13 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           package: 'busjourney.jar'
+
+      - name: Verify Deployment Health
+        uses: jtalk/url-health-check-action@v3
+        with:
+          url: https://${{ env.AZURE_WEBAPP_NAME }}.azurewebsites.net/actuator/health
+          max-attempts: 15
+          retry-delay: 10s
 
       - name: Azure Logout
         run: az logout
