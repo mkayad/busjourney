@@ -7,6 +7,9 @@ on:
     branches: [ master ]
   workflow_dispatch:
 
+permissions:
+  id-token: write
+  contents: read
 env:
   AZURE_WEBAPP_NAME: my-java-app-${{ github.run_number }}
   JAVA_VERSION: '21'
