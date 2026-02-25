@@ -30,6 +30,7 @@ resource "azurerm_linux_web_app" "main" {
       java_server_version = "21"        # Changed
       java_version        = "21"
     }
+    app_command_line = "java -jar /home/site/wwwroot/busjourney.jar"
 
     always_on = false
   }

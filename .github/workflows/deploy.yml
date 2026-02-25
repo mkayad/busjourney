@@ -211,7 +211,7 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          package: 'busjourney.jar'
+          package: '.'
 
       - name: Verify Deployment Health
         uses: jtalk/url-health-check-action@v3
