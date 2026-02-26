@@ -23,68 +23,73 @@
     <div class="col-md-12">
         <h2 class="content-heading">Buses Expected at Great Portland Street Station</h2>
         <div class="row">
-            <div class="col-md-6">
-                <h3>Stop G</h3>
-                <table class="display table table-responsive-sm table-striped" id="tableData" border="1" cellpadding="0"
-                       cellspacing="0"
-                       style="width:100%">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th>Line Name</th>
-                        <th>Destination</th>
-                        <#--<th>Platform</th>-->
-                        <th>Time</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <#assign timeToStation = 0>
-                    <#list stopGTimes as arrivalTime>
+            <#list routes as route>
+                <div class="col-md-6">
+                    <h3>Stop - ${route.stopName()}</h3>
+                    <table class="display table table-responsive-sm table-striped" id="tableData" border="1" cellpadding="0"
+                           cellspacing="0"
+                           style="width:100%">
+                        <thead class="thead-dark">
                         <tr>
-                            <#assign timeToStation = arrivalTime.timeToStation()/60>
-                            <td>${arrivalTime.lineName()}</td>
-                            <td>${arrivalTime.destinationName()}</td>
-                            <#--<td>${arrivalTime.platformName}</td>-->
-                            <#if timeToStation?round lt 1>
-                                <td>due</td>
-                            <#else>
-                                <td>${timeToStation?round} mins</td>
-                            </#if>
+                            <th>Line Name</th>
+                            <th>Destination</th>
+                            <#--<th>Platform</th>-->
+                            <th>Time</th>
                         </tr>
-                    </#list>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-md-6">
-                <h3>Stop H</h3>
-                <table class="display table table-responsive-sm table-striped" id="tableData" border="1" cellpadding="0"
-                       cellspacing="0"
-                       style="width:100%">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th>Line Name</th>
-                        <th>Destination</th>
-                        <#--<th>Platform</th>-->
-                        <th>Time</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <#assign timeToStation = 0>
-                    <#list stopHTimes as arrivalTime>
-                        <tr>
-                            <#assign timeToStation = arrivalTime.timeToStation()/60>
-                            <td>${arrivalTime.lineName()}</td>
-                            <td>${arrivalTime.destinationName()}</td>
-                            <#--<td>${arrivalTime.platformName}</td>-->
-                            <#if timeToStation?round lt 1>
-                                <td>due</td>
-                            <#else>
-                                <td>${timeToStation?round} mins</td>
-                            </#if>
-                        </tr>
-                    </#list>
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                        <#assign timeToStation = 0>
+
+                        <#if route.arrivalDetails()??>
+                            <#list route.arrivalDetails() as arrivalTime>
+                                <tr>
+                                    <#assign timeToStation = (arrivalTime.timeToStation()/60)?int>
+                                    <td>${arrivalTime.lineName()}</td>
+                                    <td>${arrivalTime.destinationName()}</td>
+                                    <#--<td>${arrivalTime.platformName}</td>-->
+                                    <#if timeToStation?round lt 1>
+                                        <td>due</td>
+                                    <#else>
+                                        <td>${timeToStation?round} mins</td>
+                                    </#if>
+                                </tr>
+                            </#list>
+                        </#if>
+                        </tbody>
+                    </table>
+                </div>
+            </#list>
+<#--            <div class="col-md-6">-->
+<#--                <h3>Stop H</h3>-->
+<#--                <table class="display table table-responsive-sm table-striped" id="tableData" border="1" cellpadding="0"-->
+<#--                       cellspacing="0"-->
+<#--                       style="width:100%">-->
+<#--                    <thead class="thead-dark">-->
+<#--                    <tr>-->
+<#--                        <th>Line Name</th>-->
+<#--                        <th>Destination</th>-->
+<#--                        &lt;#&ndash;<th>Platform</th>&ndash;&gt;-->
+<#--                        <th>Time</th>-->
+<#--                    </tr>-->
+<#--                    </thead>-->
+<#--                    <tbody>-->
+<#--                    <#assign timeToStation = 0>-->
+<#--                    <#list stopHTimes as arrivalTime>-->
+<#--                        <tr>-->
+<#--                            <#assign timeToStation = arrivalTime.timeToStation()/60>-->
+<#--                            <td>${arrivalTime.lineName()}</td>-->
+<#--                            <td>${arrivalTime.destinationName()}</td>-->
+<#--                            &lt;#&ndash;<td>${arrivalTime.platformName}</td>&ndash;&gt;-->
+<#--                            <#if timeToStation?round lt 1>-->
+<#--                                <td>due</td>-->
+<#--                            <#else>-->
+<#--                                <td>${timeToStation?round} mins</td>-->
+<#--                            </#if>-->
+<#--                        </tr>-->
+<#--                    </#list>-->
+<#--                    </tbody>-->
+<#--                </table>-->
+<#--            </div>-->
         </div>
     </div>
 </div>

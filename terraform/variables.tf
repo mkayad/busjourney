@@ -21,3 +21,21 @@ variable "environment" {
   type        = string
   default     = "dev"
 }
+
+variable "mysql_database_name" {
+  description = "Name of the MySQL database"
+  type        = string
+  default     = "busjourney_db"
+}
+
+variable "mysql_sku_name" {
+  description = "SKU name for MySQL server"
+  type        = string
+  default     = "B_Standard_B1s"
+}
+
+variable "mysql_storage_size_gb" {
+  description = "Storage size for MySQL server in GB"
+  type        = number
+  default     = 20
+}
