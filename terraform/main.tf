@@ -68,33 +68,31 @@ resource "azurerm_linux_web_app" "main" {
 
 ## MySQL Server for Azure Database for MySQL
 resource "azurerm_mysql_flexible_server" "main" {
-  name                = "${var.app_service_name}-mysql-server"
-  resource_group_name = azurerm_resource_group.main.name
-  location            = azurerm_resource_group.main.location
-  
-  version           = "8.0"
-  administrator_login = "mysqladmin"
-  administrator_login_password = random_password.mysql_password.result
-  
+  name                   = "${var.app_service_name}-mysql-server"
+  resource_group_name    = azurerm_resource_group.main.name
+  location               = azurerm_resource_group.main.location
+
+  administrator_login    = "mysqladmin"
+  administrator_password = random_password.mysql_password.result
+
+  # Use 'version' not 'mysql_version'
+  version = "8.0.21"  # Options: 5.7, 8.0.21
+
+  sku_name = "B_Standard_B1s"
+
   storage {
-    storage_size_gb = 20
+    size_gb           = 20
+    iops              = 360
+    auto_grow_enabled = true
   }
-  
-  sku_name = "B_Standard_B1s" # Burstable tier, change as needed
-  
-  backup {
-    backup_retention_days = 7
-    geo_redundant_backup_enabled = false
-  }
-  
-  high_availability {
-    mode = "Disabled"
-  }
-  
-  tags = {
-    Environment = var.environment
-  }
+
+  backup_retention_days        = 7
+  geo_redundant_backup_enabled = false
+
 }
+
+# Random password resource
+
 
 ## MySQL Database
 resource "azurerm_mysql_flexible_database" "main" {
@@ -103,10 +101,7 @@ resource "azurerm_mysql_flexible_database" "main" {
   server_name         = azurerm_mysql_flexible_server.main.name
   charset             = "utf8mb4"
   collation           = "utf8mb4_unicode_ci"
-  
-  tags = {
-    Environment = var.environment
-  }
+
 }
 
 ## Azure Key Vault
