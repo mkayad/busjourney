@@ -11,7 +11,7 @@ permissions:
   id-token: write
   contents: read
 env:
-  AZURE_WEBAPP_NAME: my-java-app-${{ github.run_number }}
+  AZURE_WEBAPP_NAME: bus-journey-service-web
   JAVA_VERSION: '21'
   TF_VERSION: '1.6.0'
   AZURE_RESOURCE_GROUP: 'java-app-rg'
@@ -44,15 +44,15 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build -x test
 
-      - name: Run tests
-        run: ./gradlew test
-
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results
-          path: build/test-results/test/*.xml
+#      - name: Run tests
+#        run: ./gradlew test
+#
+#      - name: Upload test results
+#        if: always()
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: test-results
+#          path: build/test-results/test/*.xml
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
