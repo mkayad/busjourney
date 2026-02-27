@@ -13,7 +13,7 @@ variable "location" {
 variable "app_service_name" {
   description = "Name of the App Service"
   type        = string
-  default = "Busjourney-app-plan"
+  default = "busjourney-app-plan"
 }
 
 variable "environment" {
