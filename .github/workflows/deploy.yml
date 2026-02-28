@@ -189,7 +189,7 @@ jobs:
 
   deploy:
     name: Deploy to Azure
-    needs: terraform-apply
+    # needs: terraform-apply
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact
