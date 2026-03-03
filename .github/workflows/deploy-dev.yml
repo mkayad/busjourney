@@ -2,9 +2,9 @@ name: Deploy to Development
 
 on:
   push:
-    branches: [ develop, feature/*, hotfix/* ]
+    branches: [ development, feature/*, hotfix/* ]
   pull_request:
-    branches: [ main, staging ]
+    branches: [ master, staging ]
   workflow_dispatch:
 
 permissions:
