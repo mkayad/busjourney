@@ -63,24 +63,41 @@ resource "azurerm_mysql_flexible_server" "main" {
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
   
-  version           = "8.0"
+  version           = "8.0.21"
   administrator_login = "mysqladmin"
-  administrator_login_password = random_password.mysql_password.result
-  
+  administrator_password = random_password.mysql_password.result
+
   storage {
-    storage_size_gb = 20
+    size_gb = var.mysql_storage_size_gb
   }
   
-  sku_name = "B_Standard_B1s" # Burstable tier, change as needed
-  
-  backup {
-    backup_retention_days = 7
-    geo_redundant_backup_enabled = false
-  }
+  sku_name = var.mysql_sku_name
+
   
   high_availability {
-    mode = "Disabled"
+    mode                      = "ZoneRedundant"
+    standby_availability_zone = "2"
   }
+  
+  tags = {
+    Environment = var.environment
+  }
+}
+
+## MySQL Server Admin Password
+resource "azurerm_mysql_flexible_server_firewall_rule" "allow_azure" {
+  name                = "allow-azure-access"
+  resource_group_name = azurerm_resource_group.main.name
+  server_name         = azurerm_mysql_flexible_server.main.name
+  start_ip_address    = "0.0.0.0"
+  end_ip_address      = "0.0.0.0"
+}
+
+## Key Vault Secret for MySQL Password
+resource "azurerm_key_vault_secret" "mysql_password" {
+  name         = "mysql-password"
+  value        = random_password.mysql_password.result
+  key_vault_id = azurerm_key_vault.main.id
   
   tags = {
     Environment = var.environment
@@ -94,10 +111,6 @@ resource "azurerm_mysql_flexible_database" "main" {
   server_name         = azurerm_mysql_flexible_server.main.name
   charset             = "utf8mb4"
   collation           = "utf8mb4_unicode_ci"
-  
-  tags = {
-    Environment = var.environment
-  }
 }
 
 ## Azure Key Vault
@@ -130,16 +143,6 @@ resource "azurerm_key_vault" "main" {
 resource "azurerm_key_vault_secret" "mysql_username" {
   name         = "mysql-username"
   value        = azurerm_mysql_flexible_server.main.administrator_login
-  key_vault_id = azurerm_key_vault.main.id
-  
-  tags = {
-    Environment = var.environment
-  }
-}
-
-resource "azurerm_key_vault_secret" "mysql_password" {
-  name         = "mysql-password"
-  value        = random_password.mysql_password.result
   key_vault_id = azurerm_key_vault.main.id
   
   tags = {
