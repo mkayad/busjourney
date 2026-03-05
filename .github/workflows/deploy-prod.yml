@@ -176,6 +176,7 @@ jobs:
           ARM_USE_OIDC: true
 
       - name: Get Terraform Outputs
+        working-directory: ./terraform
         id: tf-outputs
         run: |
           echo "app_url=$(terraform output -raw app_service_default_hostname)" >> $GITHUB_OUTPUT
