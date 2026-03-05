@@ -38,5 +38,3 @@ docker push  apppregistry2025.azurecr.io/busjourney:latest
 Note:
 When creating the container instance, don't forget to specify the port (8080).
 example: http://172.187.120.203:8080/
-
-when terraform files, it is necessary to run terraform init upgrade 
