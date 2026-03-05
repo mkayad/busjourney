@@ -166,6 +166,7 @@ jobs:
           ARM_USE_OIDC: true
 
       - name: Terraform Apply
+        working-directory: ./terraform
         run: |
           echo "Applying to environment: ${{ env.ENVIRONMENT }}"
           terraform apply -auto-approve tfplan
