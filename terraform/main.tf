@@ -73,12 +73,6 @@ resource "azurerm_mysql_flexible_server" "main" {
   
   sku_name = var.mysql_sku_name
 
-  
-  high_availability {
-    mode                      = "ZoneRedundant"
-    standby_availability_zone = "2"
-  }
-  
   tags = {
     Environment = var.environment
   }
