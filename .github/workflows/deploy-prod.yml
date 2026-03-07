@@ -126,6 +126,10 @@ jobs:
     name: Terraform Apply
     needs: terraform-plan
     runs-on: ubuntu-latest
+    outputs:
+      app_service_name: ${{ steps.tf-outputs.outputs.app_service_name }}
+      app_url: ${{ steps.tf-outputs.outputs.app_url }}
+      resource_group: ${{ steps.tf-outputs.outputs.resource_group }}
     defaults:
       run:
         working-directory: ./terraform
