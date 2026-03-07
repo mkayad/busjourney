@@ -215,13 +215,13 @@ jobs:
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: ${{ steps.tf-outputs.outputs.app_service_name }}
+          app-name: ${{ needs.terraform-apply.outputs.app_service_name }}
           package: '.'
 
       - name: Verify Deployment Health
         uses: jtalk/url-health-check-action@v3
         with:
-          url: https://${{ steps.tf-outputs.outputs.app_url }}/actuator/health
+          url: https://${{ needs.terraform-apply.outputs.app_url }}/actuator/health
           max-attempts: 15
           retry-delay: 10s
 
