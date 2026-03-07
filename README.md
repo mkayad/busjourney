@@ -39,4 +39,16 @@ Note:
 When creating the container instance, don't forget to specify the port (8080).
 example: http://172.187.120.203:8080/
 
-when terraform files, it is necessary to run terraform init upgrade 
+when terraform files, it is necessary to run terraform init upgrade
+Ensure Managed Identity has Key Vault access
+Your App Service needs permissions to read Key Vault secrets:
+az keyvault set-policy \
+--name XXX \
+--object-id YYYYY \
+--secret-permissions get list
+
+
+az webapp identity show \
+--resource-group XX-rg \
+--name appServiceNameXXX \
+--query principalId -o tsv
