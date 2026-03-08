@@ -39,3 +39,27 @@ variable "mysql_storage_size_gb" {
   type        = number
   default     = 20
 }
+
+variable "vnet_address_space" {
+  description = "Address space for the VNet"
+  type        = string
+  default     = "10.0.0.0/16"
+}
+
+variable "app_service_subnet_address_prefix" {
+  description = "Address prefix for App Service subnet"
+  type        = string
+  default     = "10.0.1.0/24"
+}
+
+variable "mysql_subnet_address_prefix" {
+  description = "Address prefix for MySQL subnet"
+  type        = string
+  default     = "10.0.2.0/24"
+}
+
+variable "key_vault_subnet_address_prefix" {
+  description = "Address prefix for Key Vault subnet"
+  type        = string
+  default     = "10.0.3.0/24"
+}

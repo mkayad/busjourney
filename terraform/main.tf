@@ -8,6 +8,52 @@ resource "azurerm_resource_group" "main" {
   }
 }
 
+## Virtual Network
+resource "azurerm_virtual_network" "main" {
+  name                = "${var.app_service_name}-vnet"
+  address_space       = [var.vnet_address_space]
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+
+  tags = {
+    Environment = var.environment
+  }
+}
+
+## Subnets
+resource "azurerm_subnet" "app_service" {
+  name                 = "app-service-subnet"
+  resource_group_name  = azurerm_resource_group.main.name
+  virtual_network_name = azurerm_virtual_network.main.name
+  address_prefixes     = [var.app_service_subnet_address_prefix]
+
+  delegation {
+    name = "app-service-delegation"
+    service_delegation {
+      name    = "Microsoft.Web/serverFarms"
+      actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
+    }
+  }
+}
+
+resource "azurerm_subnet" "mysql" {
+  name                 = "mysql-subnet"
+  resource_group_name  = azurerm_resource_group.main.name
+  virtual_network_name = azurerm_virtual_network.main.name
+  address_prefixes     = [var.mysql_subnet_address_prefix]
+
+  service_endpoints = ["Microsoft.Sql"]
+}
+
+resource "azurerm_subnet" "key_vault" {
+  name                 = "key-vault-subnet"
+  resource_group_name  = azurerm_resource_group.main.name
+  virtual_network_name = azurerm_virtual_network.main.name
+  address_prefixes     = [var.key_vault_subnet_address_prefix]
+
+  service_endpoints = ["Microsoft.KeyVault"]
+}
+
 # App Service Plan
 resource "azurerm_service_plan" "main" {
   name                = "${var.app_service_name}-plan"
@@ -38,6 +84,15 @@ resource "azurerm_linux_web_app" "main" {
   app_settings = {
     "SCM_DO_BUILD_DURING_DEPLOYMENT" = "false"
     "WEBSITE_RUN_FROM_PACKAGE"       = "1"
+    "SPRING_DATASOURCE_URL"          = "jdbc:mysql://${azurerm_mysql_flexible_server.main.fqdn}:3306/${azurerm_mysql_flexible_database.main.name}?useSSL=true&requireSSL=true&serverTimezone=UTC"
+    "SPRING_DATASOURCE_USERNAME"     = azurerm_mysql_flexible_server.main.administrator_login
+    "SPRING_DATASOURCE_PASSWORD"     = random_password.mysql_password.result
+    "SPRING_JPA_HIBERNATE_DDL_AUTO"   = "update"
+    "SPRING_JPA_SHOW_SQL"            = "true"
+  }
+
+  identity {
+    type = "SystemAssigned"
   }
 
   logs {
@@ -63,16 +118,26 @@ resource "azurerm_mysql_flexible_server" "main" {
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
   
-  version           = "8.0.21"
+  version           = "8.0"
   administrator_login = "mysqladmin"
-  administrator_password = random_password.mysql_password.result
-
+  
   storage {
-    size_gb = var.mysql_storage_size_gb
+    storage_size_gb = var.mysql_storage_size_gb
   }
   
   sku_name = var.mysql_sku_name
-
+  
+  backup {
+    backup_retention_days = 7
+    geo_redundant_backup_enabled = false
+  }
+  
+  high_availability {
+    mode = "Disabled"
+  }
+  
+  delegated_subnet_id = azurerm_subnet.mysql.id
+  
   tags = {
     Environment = var.environment
   }
@@ -114,6 +179,12 @@ resource "azurerm_key_vault" "main" {
   location            = azurerm_resource_group.main.location
   tenant_id           = data.azurerm_client_config.current.tenant_id
   sku_name            = "standard"
+  
+  network_acls {
+    default_action             = "Allow"
+    bypass                    = "AzureServices"
+    virtual_network_subnet_ids = [azurerm_subnet.key_vault.id]
+  }
   
   access_policy {
     tenant_id = data.azurerm_client_config.current.tenant_id

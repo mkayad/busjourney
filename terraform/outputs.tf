@@ -16,6 +16,16 @@ output "resource_group_name" {
   value = azurerm_resource_group.main.name
 }
 
+output "vnet_id" {
+  value       = azurerm_virtual_network.main.id
+  description = "The ID of the Virtual Network"
+}
+
+output "vnet_name" {
+  value       = azurerm_virtual_network.main.name
+  description = "The name of the Virtual Network"
+}
+
 output "mysql_server_fqdn" {
   value       = azurerm_mysql_flexible_server.main.fqdn
   description = "The fully qualified domain name of the MySQL server"
