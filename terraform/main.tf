@@ -144,6 +144,19 @@ resource "azurerm_mysql_flexible_server" "main" {
     Environment = var.environment
   }
 }
+# 1. Create the Private DNS Zone (If not already created by the MySQL resource)
+resource "azurerm_private_dns_zone" "mysql_dns" {
+  name                = "${var.app_service_name}-mysql-server"
+  resource_group_name = azurerm_resource_group.main.name
+}
+
+# 2. LINK the DNS Zone to your VNet
+resource "azurerm_private_dns_zone_virtual_network_link" "dns_link" {
+  name                  = "mysql-dns-link"
+  resource_group_name   = azurerm_resource_group.main.name
+  private_dns_zone_name = azurerm_private_dns_zone.mysql_dns.name
+  virtual_network_id    = azurerm_virtual_network.main.id # Your VNet ID
+}
 
 ## MySQL Server Admin Password
 resource "azurerm_mysql_flexible_server_firewall_rule" "allow_azure" {
