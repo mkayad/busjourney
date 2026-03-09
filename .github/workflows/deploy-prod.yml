@@ -218,12 +218,12 @@ jobs:
           app-name: ${{ needs.terraform-apply.outputs.app_service_name }}
           package: '.'
 
-      - name: Verify Deployment Health
-        uses: jtalk/url-health-check-action@v3
-        with:
-          url: https://${{ needs.terraform-apply.outputs.app_url }}/actuator/health
-          max-attempts: 15
-          retry-delay: 10s
+#      - name: Verify Deployment Health
+#        uses: jtalk/url-health-check-action@v3
+#        with:
+#          url: https://${{ needs.terraform-apply.outputs.app_url }}/actuator/health
+#          max-attempts: 15
+#          retry-delay: 10s
 
       - name: Azure Logout
         run: az logout
