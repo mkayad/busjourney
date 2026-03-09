@@ -93,9 +93,9 @@ resource "azurerm_linux_web_app" "main" {
   app_settings = {
     "SCM_DO_BUILD_DURING_DEPLOYMENT" = "false"
     "WEBSITE_RUN_FROM_PACKAGE"       = "1"
-    "SPRING_DATASOURCE_URL"          = "jdbc:mysql://${azurerm_mysql_flexible_server.main.fqdn}:3306/${azurerm_mysql_flexible_database.main.name}?useSSL=true&requireSSL=true&serverTimezone=UTC"
-    "SPRING_DATASOURCE_USERNAME"     = azurerm_mysql_flexible_server.main.administrator_login
-    "SPRING_DATASOURCE_PASSWORD"     = random_password.mysql_password.result
+#    "SPRING_DATASOURCE_URL"          = "jdbc:mysql://${azurerm_mysql_flexible_server.main.fqdn}:3306/${azurerm_mysql_flexible_database.main.name}?useSSL=true&requireSSL=true&serverTimezone=UTC"
+#    "SPRING_DATASOURCE_USERNAME"     = azurerm_mysql_flexible_server.main.administrator_login
+#    "SPRING_DATASOURCE_PASSWORD"     = random_password.mysql_password.result
     "SPRING_JPA_HIBERNATE_DDL_AUTO"   = "update"
     "SPRING_JPA_SHOW_SQL"            = "true"
   }
@@ -139,6 +139,7 @@ resource "azurerm_mysql_flexible_server" "main" {
 
   
   delegated_subnet_id = azurerm_subnet.mysql.id
+  private_dns_zone_id    = azurerm_private_dns_zone.mysql_dns.id
   
   tags = {
     Environment = var.environment
