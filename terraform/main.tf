@@ -120,7 +120,8 @@ resource "azurerm_mysql_flexible_server" "main" {
   
   version           = "8.0.21"
   administrator_login = "mysqladmin"
-  
+  administrator_password = random_password.mysql_password.result
+
   storage {
     size_gb = var.mysql_storage_size_gb
   }
