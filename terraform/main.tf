@@ -147,7 +147,7 @@ resource "azurerm_mysql_flexible_server" "main" {
 }
 # 1. Create the Private DNS Zone (If not already created by the MySQL resource)
 resource "azurerm_private_dns_zone" "mysql_dns" {
-  name                = "mysql.${var.environment}.internal"
+  name                = "${var.environment}.mysql.database.azure.com"
   resource_group_name = azurerm_resource_group.main.name
 }
 
