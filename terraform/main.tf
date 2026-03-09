@@ -232,7 +232,7 @@ resource "azurerm_key_vault_secret" "mysql_username" {
 
 resource "azurerm_key_vault_secret" "mysql_connection_string" {
   name         = "mysql-connection-string"
-  value        = "jdbc:mysql://${azurerm_mysql_flexible_server.main.fqdn}.${azurerm_private_dns_zone.mysql_dns.name}:3306/${azurerm_mysql_flexible_database.main.name}?useSSL=true&requireSSL=true&serverTimezone=UTC"
+  value        = "jdbc:mysql://${azurerm_mysql_flexible_server.main.name}.${azurerm_private_dns_zone.mysql_dns.name}:3306/${azurerm_mysql_flexible_database.main.name}?useSSL=true&requireSSL=true&serverTimezone=UTC"
   key_vault_id = azurerm_key_vault.main.id
   
   tags = {
