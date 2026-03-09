@@ -43,6 +43,15 @@ resource "azurerm_subnet" "mysql" {
   address_prefixes     = [var.mysql_subnet_address_prefix]
 
   service_endpoints = ["Microsoft.Sql"]
+  delegation {
+    name = "mysql-delegation"
+    service_delegation {
+      name = "Microsoft.DBforMySQL/flexibleServers"
+      actions = [
+        "Microsoft.Network/virtualNetworks/subnets/join/action"
+      ]
+    }
+  }
 }
 
 resource "azurerm_subnet" "key_vault" {
