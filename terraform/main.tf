@@ -150,7 +150,13 @@ resource "azurerm_private_dns_zone" "mysql_dns" {
   name                = "${var.environment}.mysql.database.azure.com"
   resource_group_name = azurerm_resource_group.main.name
 }
-
+resource "azurerm_private_dns_zone_virtual_network_link" "mysql_dns_link" {
+  name                  = "mysql-dns-vnet-link"
+  resource_group_name   = azurerm_resource_group.main.name
+  private_dns_zone_name = azurerm_private_dns_zone.mysql_dns.name
+  virtual_network_id    = azurerm_virtual_network.main.id
+  registration_enabled  = false
+}
 # 2. LINK the DNS Zone to your VNet
 resource "azurerm_private_dns_zone_virtual_network_link" "dns_link" {
   name                  = "mysql-dns-link"
