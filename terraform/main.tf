@@ -82,8 +82,8 @@ resource "azurerm_linux_web_app" "main" {
   site_config {
     application_stack {
       java_server         = "JAVA"      # Changed from TOMCAT
-      java_server_version = "21"        # Changed
-      java_version        = "21"
+      java_server_version = "25"        # Changed
+      java_version        = "25"
     }
     app_command_line = "java -jar /home/site/wwwroot/busjourney.jar"
 
@@ -127,7 +127,7 @@ resource "azurerm_mysql_flexible_server" "main" {
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
   
-  version           = "8.0.21"
+  version           = "8.4"
   administrator_login = "mysqladmin"
   administrator_password = random_password.mysql_password.result
 
