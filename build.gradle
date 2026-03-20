@@ -19,7 +19,7 @@ repositories {
 }
 dependencyManagement {
 	imports {
-		mavenBom 'com.azure.spring:spring-cloud-azure-dependencies:6.1.0'
+		mavenBom 'com.azure.spring:spring-cloud-azure-dependencies:5.19.0'
 	}
 }
 dependencies {
@@ -30,7 +30,8 @@ dependencies {
 	implementation 'com.mysql:mysql-connector-j:8.2.0'
 	// Azure Key Vault dependencies
 	implementation 'com.azure.spring:spring-cloud-azure-starter-keyvault-secrets'
-
+	// Source: https://mvnrepository.com/artifact/com.azure/azure-identity
+	implementation("com.azure:azure-identity:1.19.0-beta.2")
 	// Optional: For using @ConfigurationProperties
 	implementation 'org.springframework.boot:spring-boot-configuration-processor'
 

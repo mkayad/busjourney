@@ -246,6 +246,7 @@ resource "azurerm_key_vault_secret" "mysql_connection_string" {
 resource "random_password" "mysql_password" {
   length  = 16
   special = true
+  override_special = "!#$%&*()-_=+[]{}<>:?"
 }
 
 ## Data source for current client configuration
